@@ -45,3 +45,21 @@ body {
 .is-hidden {
   display: none;
 }
+img {
+  display: block;
+  max-width: 100%;
+}
+.photo-card {
+  border: 1px solid black;
+  background-color: #ddbc95;
+}
+.gallery {
+  display: flex;
+  gap: 10px;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+.info {
+  text-align: center;
+}

@@ -3,6 +3,7 @@ import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const refs = getRefs();
+
 function createMarkUp(arr) {
   const markUp = arr.map(
     ({
@@ -36,10 +37,9 @@ function createMarkUp(arr) {
   );
   refs.photoGallery.insertAdjacentHTML('beforeend', markUp.join(''));
 
-  const lightbox = $('.gallery a').simpleLightbox({
+  const lightbox = new SimpleLightbox('.gallery a', {
     captionsData: 'alt',
     captionDelay: 250,
-    captionPosition: 'bottom',
   });
 }
 
