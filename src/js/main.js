@@ -7,14 +7,15 @@ import 'simplelightbox/dist/simple-lightbox.min.css';
 
 const refs = getRefs();
 
+let lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionDelay: 250,
+  captionPosition: 'bottom',
+});
 const perPages = 40;
 let page = 1;
 let searchPhoto = '';
 
-const paramsNotify = {
-  background: '#b38867',
-  timeout: 1000,
-};
 refs.btnLoading.classList.add('is-hidden');
 
 refs.searchForm.addEventListener('submit', onSearch);
@@ -39,35 +40,35 @@ function onSearch(event) {
       } else {
         Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images`);
         createMarkUp(result);
-        lightbox.refresh();
       }
       if (data.totalHits > perPages) {
         refs.btnLoading.classList.remove('is-hidden');
       }
     })
-    .catch(onError);
+    .catch(error => console.log(error.message));
+  lightbox.refresh();
 
   refs.btnLoading.addEventListener('click', onClickLoading);
   event.currentTarget.reset();
 }
 
-async function onClickLoading() {
+function onClickLoading() {
   page += 1;
-  try {
-    const result = await fetchPhoto(searchPhoto, page, perPages);
-    const searchResult = result.hits;
-    const lastPage = Math.ceil(result.totalHits / perPages);
-    createMarkUp(searchResult);
-    if (page === lastPage) {
-      refs.btnLoading.classList.add('.is-hidden');
-      Notiflix.Notify.info(
-        "We're sorry, but you've reached the end of search results."
-      );
-      refs.btnLoading.removeEventListener('click', onClickLoading);
-    }
-  } catch (error) {
-    onError;
-  }
+  fetchPhoto(searchPhoto, page, perPages)
+    .then(data => {
+      const searchResult = data.hits;
+      const lastPage = Math.ceil(data.totalHits / perPages);
+      createMarkUp(searchResult);
+      if (page === lastPage) {
+        refs.btnLoading.classList.add('.is-hidden');
+        Notiflix.Notify.info(
+          "We're sorry, but you've reached the end of search results."
+        );
+        refs.btnLoading.removeEventListener('click', onClickLoading);
+      }
+      lightbox.refresh();
+    })
+    .catch(onError);
 }
 
 function onError() {

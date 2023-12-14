@@ -6,7 +6,6 @@ body {
 }
 
 .search-form {
-  /* position: fixed; */
   background-color: #626d71;
   display: flex;
   justify-content: center;
@@ -18,11 +17,11 @@ body {
 }
 .submit-btn {
   display: inline-block;
-
   padding: 5px 30px;
   text-align: center;
   text-transform: uppercase;
-  border: none;
+
+  border: 1px solid black;
   border-radius: 5px;
   background-color: #b38867;
   color: white;
@@ -31,17 +30,21 @@ body {
 }
 
 .load-more {
-  display: inline-block;
+  display: block;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 20px;
   padding: 5px 30px;
   text-align: center;
   text-transform: uppercase;
-  border: none;
+  border: 1px solid black;
   border-radius: 5px;
   background-color: #b38867;
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease-in-out, transform 0.2s ease-in-out;
 }
+
 .is-hidden {
   display: none;
 }

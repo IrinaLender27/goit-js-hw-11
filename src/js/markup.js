@@ -1,6 +1,6 @@
 import getRefs from './refs';
-import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+import SimpleLightbox from 'simplelightbox';
 
 const refs = getRefs();
 
@@ -35,12 +35,7 @@ function createMarkUp(arr) {
 </div>`;
     }
   );
+
   refs.photoGallery.insertAdjacentHTML('beforeend', markUp.join(''));
-
-  const lightbox = new SimpleLightbox('.gallery a', {
-    captionsData: 'alt',
-    captionDelay: 250,
-  });
 }
-
 export { createMarkUp };
