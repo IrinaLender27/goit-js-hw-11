@@ -60,7 +60,7 @@ function onClickLoading() {
       const lastPage = Math.ceil(data.totalHits / perPages);
       createMarkUp(searchResult);
       if (page === lastPage) {
-        refs.btnLoading.classList.add('.is-hidden');
+        refs.btnLoading.classList.replace('.load-more', '.is-hidden');
         Notiflix.Notify.info(
           "We're sorry, but you've reached the end of search results."
         );
