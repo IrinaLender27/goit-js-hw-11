@@ -25,7 +25,7 @@ function onSearch(event) {
   refs.photoGallery.innerHTML = '';
   page = 1;
   const { searchQuery } = event.currentTarget.elements;
-  const searchPhoto = searchQuery.value.toLowerCase().trim();
+  searchPhoto = searchQuery.value.toLowerCase().trim();
   if (searchPhoto === '') {
     Notiflix.Notify.info('Please, enter parameters for search');
     return;
@@ -40,13 +40,13 @@ function onSearch(event) {
       } else {
         Notiflix.Notify.success(`Hooray! We found ${data.totalHits} images`);
         createMarkUp(result);
+        lightbox.refresh();
       }
       if (data.totalHits > perPages) {
         refs.btnLoading.classList.remove('is-hidden');
       }
     })
     .catch(error => console.log(error.message));
-  lightbox.refresh();
 
   refs.btnLoading.addEventListener('click', onClickLoading);
   event.currentTarget.reset();
