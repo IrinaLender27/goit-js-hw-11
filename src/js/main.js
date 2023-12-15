@@ -46,7 +46,7 @@ function onSearch(event) {
         refs.btnLoading.classList.remove('is-hidden');
       }
     })
-    .catch(error => console.log(error.message));
+    .catch(onError);
 
   refs.btnLoading.addEventListener('click', onClickLoading);
   event.currentTarget.reset();
@@ -59,18 +59,19 @@ function onClickLoading() {
       const searchResult = data.hits;
       const lastPage = Math.ceil(data.totalHits / perPages);
       createMarkUp(searchResult);
-      if (page === lastPage) {
-        refs.btnLoading.classList.replace('.load-more', '.is-hidden');
+      lightbox.refresh();
+      if (page >= lastPage) {
+        refs.btnLoading.classList.add('is-hidden');
         Notiflix.Notify.info(
           "We're sorry, but you've reached the end of search results."
         );
         refs.btnLoading.removeEventListener('click', onClickLoading);
       }
-      lightbox.refresh();
     })
     .catch(onError);
 }
 
 function onError() {
+  refs.btnLoading.classList.add('is-hidden');
   Notiflix.Notify.failure('Oops! Something went wrong. Please, try again.');
 }
